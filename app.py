@@ -1,6 +1,7 @@
 from flask import Flask, request, send_file, render_template_string
 import pandas as pd
 import tempfile
+import os
 
 app = Flask(__name__)
 
@@ -56,7 +57,7 @@ def upload_file():
 
     return render_template_string(HTML_FORM)
 
+# ✅ Este bloque garantiza compatibilidad con Render
 if __name__ == "__main__":
-    import os
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 10000))  # Puerto asignado por Render
     app.run(host="0.0.0.0", port=port)
