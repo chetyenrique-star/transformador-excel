@@ -7,13 +7,80 @@ app = Flask(__name__)
 
 HTML_FORM = """
 <!doctype html>
-<title>Transformador de Excel</title>
-<h2>Sube tu archivo Diario_original.xlsx</h2>
-<form method=post enctype=multipart/form-data>
-  <input type=file name=file accept=".xlsx">
-  <input type=submit value=Transformar>
-</form>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Transformador Aconpy</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f6f8fa;
+      color: #333;
+      text-align: center;
+      padding: 50px;
+    }
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: inline-block;
+      padding: 40px 60px;
+    }
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+    input[type=file] {
+      display: block;
+      margin: 0 auto 20px auto;
+      border: 2px dashed #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      width: 280px;
+      cursor: pointer;
+      background-color: #fafafa;
+    }
+    input[type=submit] {
+      background: #007bff;
+      border: none;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+    input[type=submit]:hover {
+      background: #0056b3;
+    }
+    .loading {
+      display: none;
+      font-size: 16px;
+      color: #007bff;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📊 Transformador Aconpy</h2>
+    <form id="upload-form" method="post" enctype="multipart/form-data">
+      <input type="file" name="file" accept=".xlsx" required>
+      <input type="submit" value="Transformar Excel">
+    </form>
+    <div class="loading" id="loading">⏳ Procesando archivo...</div>
+  </div>
+
+  <script>
+    const form = document.getElementById('upload-form');
+    form.addEventListener('submit', () => {
+      document.getElementById('loading').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
 """
+
 
 @app.route("/", methods=["GET", "POST"])
 def upload_file():
